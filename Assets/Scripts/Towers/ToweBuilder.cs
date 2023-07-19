@@ -25,6 +25,7 @@ namespace Towers
 
         public void SetTowerToManager()
         {
+            if (GameManager.Instance._gameIsPaused) return;
             if (GameManager.Instance.GetGold() < _cost) 
             {
                 GameManager.Instance.ShowMessage("Not enough gold");

@@ -30,6 +30,8 @@ namespace Towers
 
         public void UpgradeTower()
         {
+            if (GameManager.Instance._gameIsPaused) return;
+
             if (SelectedTower == null) return;
 
             if (GameManager.Instance.GetGold() < SelectedTower.GetUpgradeCost())
@@ -45,6 +47,7 @@ namespace Towers
 
         public void DestroyTower()
         {
+            if (GameManager.Instance._gameIsPaused) return;
             if (SelectedTower == null) return;
             Destroy(SelectedTower.gameObject);
             HideElements();

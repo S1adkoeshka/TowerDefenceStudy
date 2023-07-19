@@ -10,6 +10,7 @@ namespace Enemies
     {
         [SerializeField]
         private int _health;
+        private int _baseHealth;
         [SerializeField]
         private float _movespeed;
         [SerializeField]
@@ -19,6 +20,9 @@ namespace Enemies
         private DamageType _resist;
         [SerializeField, Range(0, 100)]
         private int _resistPercent;
+
+        [SerializeField]
+        private GameObject _dmgIndicator;
 
         public string Name;
 
@@ -40,6 +44,7 @@ namespace Enemies
         private void Start()
         {
             _animator = GetComponent<Animator>();
+            _baseHealth = _health;
         }
 
 
@@ -111,6 +116,8 @@ namespace Enemies
         public void ReduceHealth(int Dmg)
         {
             _health -= Dmg;
+            if(_health < (_baseHealth / 2)) _dmgIndicator.SetActive(true);
+            else _dmgIndicator.SetActive(false);
         }
 
         public void IncreaseHealth(int Buff)
