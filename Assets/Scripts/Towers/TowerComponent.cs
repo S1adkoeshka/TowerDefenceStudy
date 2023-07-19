@@ -1,3 +1,4 @@
+using Cells;
 using Enemies;
 using Enums;
 using System.Collections;
@@ -20,12 +21,16 @@ namespace Towers
         private float _aoe = 10f;
 
         public string TowerName;
+        [SerializeField]
+        private string _towerPrefabPath;
 
         [SerializeField]
         private GameObject _canon;
 
         [SerializeField]
         private Sprite _towerSprite;
+
+        private CellComponent _cell;
 
         [SerializeField]
         private GameObject _upgradeModel;
@@ -145,6 +150,9 @@ namespace Towers
             {             
                 var NewTower = Instantiate(_upgradeModel);
                 NewTower.transform.position = gameObject.transform.position;
+                var NewTowerComponent = NewTower.GetComponentInChildren<TowerComponent>();
+                NewTowerComponent.SetCell(_cell);
+                _cell.SetTower(NewTower);
                 Destroy(gameObject);
                 StartCoroutine(ScaleTower(NewTower));               
             }
@@ -174,6 +182,21 @@ namespace Towers
         public Sprite GetTowerSprite()
         {
             return _towerSprite;
+        }
+
+        public string GetTowerPrefabPath()
+        {
+            return _towerPrefabPath;
+        }
+
+        public void SetCell(CellComponent Cell)
+        {
+            _cell = Cell;
+        }
+
+        public CellComponent GetCell()
+        {
+            return _cell;
         }
 
     }

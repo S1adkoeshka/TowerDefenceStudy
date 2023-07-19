@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Towers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -53,6 +54,10 @@ namespace Cells
             var NewTower = Instantiate(TowerBilderComponent.GetTowerPrefab());
 
             NewTower.transform.position = transform.position;
+
+            TowerComponent NewTowerComponent = NewTower.GetComponentInChildren<TowerComponent>();
+
+            NewTowerComponent.SetCell(this);
 
             _tower = NewTower;
 
